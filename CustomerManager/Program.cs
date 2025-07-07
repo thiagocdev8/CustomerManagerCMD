@@ -87,9 +87,11 @@
             }
             else
             {
-                foreach (var cliente in clientes)
+                int i = 1; 
+                foreach (Cliente cliente in clientes)
                 {
-                    Console.WriteLine($"Name: {cliente.nome}, Email: {cliente.email}, CPF: {cliente.cpf}");
+                    Console.WriteLine($"{i}. Name: {cliente.nome} | Email: {cliente.email} | CPF: {cliente.cpf}");
+                    i++;
                 }
             }
             Console.WriteLine("Press enter to return");
