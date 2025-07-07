@@ -37,7 +37,7 @@
                         
                         break;
                     case (int)Menu.Adicionar:
-                        
+                        AdicionarCliente();
                         break;
                     case (int)Menu.Remover:
                         
@@ -58,6 +58,24 @@
 
 
 
+        }
+
+        static void AdicionarCliente()
+        {
+            Cliente cliente  = new Cliente();
+            Console.WriteLine("Adding a new customer:!");
+            Console.WriteLine("Enter customer name: ");
+            cliente.nome = Console.ReadLine();
+            Console.WriteLine("Enter customer email: ");
+            cliente.email = Console.ReadLine();
+            Console.WriteLine("Enter customer CPF: ");
+            cliente.cpf = Console.ReadLine();
+
+            
+            clientes.Add(cliente);
+            Console.WriteLine("Customer added successfully!");
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
         }
     }
 }
