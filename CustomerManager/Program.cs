@@ -34,7 +34,7 @@
                 switch (option)
                 {
                     case (int)Menu.Listagem:
-                        
+                        ListarClientes();
                         break;
                     case (int)Menu.Adicionar:
                         AdicionarCliente();
@@ -74,6 +74,24 @@
             
             clientes.Add(cliente);
             Console.WriteLine("Customer added successfully!");
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+        }
+
+        static void ListarClientes()
+        {
+            Console.WriteLine("Customer List:");
+            if (clientes.Count == 0)
+            {
+                Console.WriteLine("No customers found.");
+            }
+            else
+            {
+                foreach (var cliente in clientes)
+                {
+                    Console.WriteLine($"Name: {cliente.nome}, Email: {cliente.email}, CPF: {cliente.cpf}");
+                }
+            }
             Console.WriteLine("Press enter to return");
             Console.ReadLine();
         }
