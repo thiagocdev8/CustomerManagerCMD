@@ -8,14 +8,14 @@ namespace CustomerManager
     {
 
         
-        public class Cliente
+        public class Cliente // Class to represent a customer
         {
             public string Nome { get; set; }
             public string Email { get; set; }
             public string Cpf { get; set; }
 
 
-            public Cliente()
+            public Cliente() // Default constructor to initialize properties for json serialization
             {
                 Nome = string.Empty;
                 Email = string.Empty;
@@ -23,9 +23,9 @@ namespace CustomerManager
             }
         }
 
-        static List<Cliente> clientes = new List<Cliente>();
-        
-        enum Menu { Listagem = 1, Adicionar = 2, Remover = 3, Sair = 4 }
+        static List<Cliente> clientes = new List<Cliente>(); // List to store customers in json file
+
+        enum Menu { Listagem = 1, Adicionar = 2, Remover = 3, Sair = 4 } //menu listing
 
         static void Main(string[] args)
         {
@@ -35,30 +35,30 @@ namespace CustomerManager
             Console.WriteLine("Developed by SolarX!");
             Console.WriteLine("");
      
-            Carregar();
+            Carregar(); //load customers from json file before starting the program
             while (!isRunning)
             {
                 Console.WriteLine("Please select an option:");
                 Console.WriteLine("1 - Customer List\n2 - Add Customer\n3 - Remove Customer\n4 - Exit");
                 int option = int.Parse(Console.ReadLine());
-                switch (option)
+                switch (option) //menu switch case
                 {
                     case (int)Menu.Listagem:
-                        ListarClientes();
+                        ListarClientes(); // List customers function
                         Console.WriteLine("Press enter to return");
                         Console.ReadLine();
                         break;
                     case (int)Menu.Adicionar:
-                        AdicionarCliente();
-                        Salvar();
+                        AdicionarCliente(); //add customer to list function
+                        Salvar(); //save customers to json file after adding
                         break;
                     case (int)Menu.Remover:
-                        RemoverCliente();
-                        Salvar();
+                        RemoverCliente(); //remove customer from list function
+                        Salvar(); //save customers to json file after removing
                         break;
                     case (int)Menu.Sair:
                         Console.WriteLine("Saving data...");
-                        Salvar();
+                        Salvar(); //save customers to json file before exiting
                         Console.WriteLine("Exiting the program...");
                         Console.WriteLine("Thank you for using the Customer Manager 8.0!");
                         
@@ -78,19 +78,19 @@ namespace CustomerManager
 
         }
 
-        static void AdicionarCliente()
+        static void AdicionarCliente() //add client function
         {
             Cliente cliente  = new Cliente();
             Console.WriteLine("Adding a new customer: ");
             Console.WriteLine("Enter customer name: ");
-            cliente.Nome = Console.ReadLine();
+            cliente.Nome = Console.ReadLine(); //user input for customer name
             Console.WriteLine("Enter customer email: ");
-            cliente.Email = Console.ReadLine();
+            cliente.Email = Console.ReadLine(); //user input for customer email
             Console.WriteLine("Enter customer CPF: ");
-            cliente.Cpf = Console.ReadLine();
+            cliente.Cpf = Console.ReadLine(); //user input for customer CPF
 
-            
-            clientes.Add(cliente);
+
+            clientes.Add(cliente); //add customer to list
             Console.WriteLine("Customer added successfully!");
             Console.WriteLine("Press enter to return");
             Console.ReadLine();
@@ -99,11 +99,11 @@ namespace CustomerManager
         static void ListarClientes()
         {
             
-            if (clientes.Count == 0)
+            if (clientes.Count == 0) // Check if the customer list is empty
             {
                 Console.WriteLine("No customers found.");
             }
-            else
+            else //if list is not empty, display customers
             {
                 Console.WriteLine("Customer List:");
                 int i = 1; 
@@ -116,7 +116,7 @@ namespace CustomerManager
             
         }
 
-        static void Salvar()
+        static void Salvar() //save customers to json file function
         {
 
             try
@@ -137,7 +137,7 @@ namespace CustomerManager
 
         }
 
-        static void Carregar()
+        static void Carregar() //load customers from json file function
 
         {
 
@@ -167,12 +167,13 @@ namespace CustomerManager
 
         }
 
-        static void RemoverCliente()
+        static void RemoverCliente() //remove customer from list function
         {
-            ListarClientes();
+            ListarClientes(); //show list so user can choose which customer to remove
             Console.WriteLine("Enter the index of the customer to remove: ");
-            int index = int.Parse(Console.ReadLine()) - 1 ;
-            if (index < 0 || index >= clientes.Count)
+            // Convert user input to zero-based index (list starts at 0)
+            int index = int.Parse(Console.ReadLine()) - 1; 
+            if (index < 0 || index >= clientes.Count) 
             {
                 Console.WriteLine("Invalid index. Please try again.");
                 Console.WriteLine("Press enter to return");
@@ -184,20 +185,20 @@ namespace CustomerManager
                 Console.WriteLine($"Are you sure you want to remove the customer: {clientes[index].Nome}?");
                 Console.WriteLine($"1 - Yes\n2 - No");
                 int confirm = int.Parse(Console.ReadLine());
-                if (confirm == 1)
+                if (confirm == 1) //if user confirms removal
                 {
                     clientes.RemoveAt(index);
                     Console.WriteLine("Customer removed successfully!");
                     Console.WriteLine("Press enter to return");
                     Console.ReadLine();
                 }
-                else if (confirm == 2)
+                else if (confirm == 2) //if user does not confirm removal
                 {
                     Console.WriteLine("Operation cancelled.");
                     
                     return;
                 }
-                else
+                else //if user inputs an invalid option
                 {
                     Console.WriteLine("Invalid option. Operation cancelled.");
                     Console.WriteLine("Press enter to return");
