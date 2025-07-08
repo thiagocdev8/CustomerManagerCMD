@@ -169,8 +169,19 @@ namespace CustomerManager
 
         static void RemoverCliente() //remove customer from list function
         {
-            ListarClientes(); //show list so user can choose which customer to remove
-            Console.WriteLine("Enter the index of the customer to remove: ");
+            if (clientes.Count == 0) // Check if the customer list is empty
+            {
+                Console.WriteLine("No customers found to remove.");
+                Console.WriteLine("Press enter to return");
+                Console.ReadLine();
+                return;
+            } 
+            else
+            {
+                ListarClientes(); //show list so user can choose which customer to remove
+                Console.WriteLine("Enter the index of the customer to remove: ");
+            }
+                
             // Convert user input to zero-based index (list starts at 0)
             int index = int.Parse(Console.ReadLine()) - 1; 
             if (index < 0 || index >= clientes.Count) 
@@ -182,17 +193,17 @@ namespace CustomerManager
             }
             else
             {
-                Console.WriteLine($"Are you sure you want to remove the customer: {clientes[index].Nome}?");
+                Console.WriteLine($"Are you sure you want to remove the customer: {clientes[index].Nome} | {clientes[index].Email} | {clientes[index].Cpf} ?");
                 Console.WriteLine($"1 - Yes\n2 - No");
-                int confirm = int.Parse(Console.ReadLine());
-                if (confirm == 1) //if user confirms removal
+                string confirm = Console.ReadLine();
+                if (confirm == "1") //if user confirms removal
                 {
                     clientes.RemoveAt(index);
                     Console.WriteLine("Customer removed successfully!");
                     Console.WriteLine("Press enter to return");
                     Console.ReadLine();
                 }
-                else if (confirm == 2) //if user does not confirm removal
+                else if (confirm == "2") //if user does not confirm removal
                 {
                     Console.WriteLine("Operation cancelled.");
                     
