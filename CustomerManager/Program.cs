@@ -7,14 +7,20 @@ namespace CustomerManager
     class CustomerManager
     {
 
-        [System.Serializable]
-        struct Cliente
+        
+        public class Cliente
         {
-            public string nome;
-            public string email;
-            public string cpf;
+            public string Nome { get; set; }
+            public string Email { get; set; }
+            public string Cpf { get; set; }
 
-          
+
+            public Cliente()
+            {
+                Nome = string.Empty;
+                Email = string.Empty;
+                Cpf = string.Empty;
+            }
         }
 
         static List<Cliente> clientes = new List<Cliente>();
@@ -42,6 +48,7 @@ namespace CustomerManager
                         break;
                     case (int)Menu.Adicionar:
                         AdicionarCliente();
+                        Salvar();
                         break;
                     case (int)Menu.Remover:
                         
@@ -73,11 +80,11 @@ namespace CustomerManager
             Cliente cliente  = new Cliente();
             Console.WriteLine("Adding a new customer: ");
             Console.WriteLine("Enter customer name: ");
-            cliente.nome = Console.ReadLine();
+            cliente.Nome = Console.ReadLine();
             Console.WriteLine("Enter customer email: ");
-            cliente.email = Console.ReadLine();
+            cliente.Email = Console.ReadLine();
             Console.WriteLine("Enter customer CPF: ");
-            cliente.cpf = Console.ReadLine();
+            cliente.Cpf = Console.ReadLine();
 
             
             clientes.Add(cliente);
@@ -99,7 +106,7 @@ namespace CustomerManager
                 int i = 1; 
                 foreach (Cliente cliente in clientes)
                 {
-                    Console.WriteLine($"{i}. Name: {cliente.nome} | Email: {cliente.email} | CPF: {cliente.cpf}");
+                    Console.WriteLine($"{i}. Name: {cliente.Nome} | Email: {cliente.Email} | CPF: {cliente.Cpf}");
                     i++;
                 }
             }
@@ -114,8 +121,8 @@ namespace CustomerManager
 
             {
 
-                string json = JsonSerializer.Serialize(clientes);
-
+                
+                string json = JsonSerializer.Serialize(clientes, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText("clients.json", json);
                 Console.WriteLine("Data saved successfully!");
             }
