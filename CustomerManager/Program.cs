@@ -171,10 +171,12 @@ namespace CustomerManager
         {
             ListarClientes();
             Console.WriteLine("Enter the index of the customer to remove: ");
-            int index = int.Parse(Console.ReadLine());
-            if (index < 1 || index >= clientes.Count)
+            int index = int.Parse(Console.ReadLine()) - 1 ;
+            if (index < 0 || index >= clientes.Count)
             {
                 Console.WriteLine("Invalid index. Please try again.");
+                Console.WriteLine("Press enter to return");
+                Console.ReadLine();
                 return;
             }
             else
@@ -192,8 +194,7 @@ namespace CustomerManager
                 else if (confirm == 2)
                 {
                     Console.WriteLine("Operation cancelled.");
-                    Console.WriteLine("Press enter to return");
-                    Console.ReadLine();
+                    
                     return;
                 }
                 else
