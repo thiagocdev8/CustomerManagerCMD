@@ -1,4 +1,8 @@
-﻿namespace CustomerManager
+﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Text.Json;
+
+namespace CustomerManager
 {
     class CustomerManager
     {
@@ -25,7 +29,7 @@
             Console.WriteLine("Developed by SolarX!");
             Console.WriteLine("");
      
-
+            Carregar();
             while (!isRunning)
             {
                 Console.WriteLine("Please select an option:");
@@ -43,6 +47,10 @@
                         
                         break;
                     case (int)Menu.Sair:
+                        Console.WriteLine("Saving data...");
+                        Salvar();
+                        Console.WriteLine("Exiting the program...");
+                        Console.WriteLine("Thank you for using the Customer Manager 8.0!");
                         
                         return;
                     default:
@@ -63,7 +71,7 @@
         static void AdicionarCliente()
         {
             Cliente cliente  = new Cliente();
-            Console.WriteLine("Adding a new customer:!");
+            Console.WriteLine("Adding a new customer: ");
             Console.WriteLine("Enter customer name: ");
             cliente.nome = Console.ReadLine();
             Console.WriteLine("Enter customer email: ");
@@ -80,13 +88,14 @@
 
         static void ListarClientes()
         {
-            Console.WriteLine("Customer List:");
+            
             if (clientes.Count == 0)
             {
                 Console.WriteLine("No customers found.");
             }
             else
             {
+                Console.WriteLine("Customer List:");
                 int i = 1; 
                 foreach (Cliente cliente in clientes)
                 {
@@ -96,6 +105,59 @@
             }
             Console.WriteLine("Press enter to return");
             Console.ReadLine();
+        }
+
+        static void Salvar()
+        {
+
+            try
+
+            {
+
+                string json = JsonSerializer.Serialize(clientes);
+
+                File.WriteAllText("clients.json", json);
+                Console.WriteLine("Data saved successfully!");
+            }
+
+            catch (Exception ex)
+
+            {
+
+                Console.WriteLine($"Erro ao salvar os dados: {ex.Message}");
+
+            }
+
+        }
+
+        static void Carregar()
+
+        {
+
+            try
+
+            {
+
+                if (File.Exists("clients.json"))
+
+                {
+
+                    string json = File.ReadAllText("clients.json");
+
+                    clientes = JsonSerializer.Deserialize<List<Cliente>>(json);
+
+                }
+
+            }
+
+            catch (Exception ex)
+
+            {
+
+                Console.WriteLine($"Erro ao carregar os dados: {ex.Message}");
+
+            }
+
         }
     }
 }
