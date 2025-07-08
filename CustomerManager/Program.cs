@@ -45,13 +45,16 @@ namespace CustomerManager
                 {
                     case (int)Menu.Listagem:
                         ListarClientes();
+                        Console.WriteLine("Press enter to return");
+                        Console.ReadLine();
                         break;
                     case (int)Menu.Adicionar:
                         AdicionarCliente();
                         Salvar();
                         break;
                     case (int)Menu.Remover:
-                        
+                        RemoverCliente();
+                        Salvar();
                         break;
                     case (int)Menu.Sair:
                         Console.WriteLine("Saving data...");
@@ -110,8 +113,7 @@ namespace CustomerManager
                     i++;
                 }
             }
-            Console.WriteLine("Press enter to return");
-            Console.ReadLine();
+            
         }
 
         static void Salvar()
@@ -120,8 +122,6 @@ namespace CustomerManager
             try
 
             {
-
-                
                 string json = JsonSerializer.Serialize(clientes, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText("clients.json", json);
                 Console.WriteLine("Data saved successfully!");
@@ -166,5 +166,46 @@ namespace CustomerManager
             }
 
         }
+
+        static void RemoverCliente()
+        {
+            ListarClientes();
+            Console.WriteLine("Enter the index of the customer to remove: ");
+            int index = int.Parse(Console.ReadLine());
+            if (index < 1 || index >= clientes.Count)
+            {
+                Console.WriteLine("Invalid index. Please try again.");
+                return;
+            }
+            else
+            {
+                Console.WriteLine($"Are you sure you want to remove the customer: {clientes[index].Nome}?");
+                Console.WriteLine($"1 - Yes\n2 - No");
+                int confirm = int.Parse(Console.ReadLine());
+                if (confirm == 1)
+                {
+                    clientes.RemoveAt(index);
+                    Console.WriteLine("Customer removed successfully!");
+                    Console.WriteLine("Press enter to return");
+                    Console.ReadLine();
+                }
+                else if (confirm == 2)
+                {
+                    Console.WriteLine("Operation cancelled.");
+                    Console.WriteLine("Press enter to return");
+                    Console.ReadLine();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid option. Operation cancelled.");
+                    Console.WriteLine("Press enter to return");
+                    Console.ReadLine();
+                    return;
+                }
+               
+            }
+        }
+                
     }
 }
