@@ -118,55 +118,32 @@ namespace CustomerManager
 
         static void Salvar() //save customers to json file function
         {
-
             try
-
             {
                 string json = JsonSerializer.Serialize(clientes, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText("clients.json", json);
                 Console.WriteLine("Data saved successfully!");
             }
-
             catch (Exception ex)
-
             {
-
                 Console.WriteLine($"Erro ao salvar os dados: {ex.Message}");
-
             }
-
         }
-
         static void Carregar() //load customers from json file function
-
         {
-
             try
-
             {
-
                 if (File.Exists("clients.json"))
-
                 {
-
                     string json = File.ReadAllText("clients.json");
-
                     clientes = JsonSerializer.Deserialize<List<Cliente>>(json);
-
                 }
-
             }
-
             catch (Exception ex)
-
             {
-
                 Console.WriteLine($"Erro ao carregar os dados: {ex.Message}");
-
             }
-
         }
-
         static void RemoverCliente() //remove customer from list function
         {
             if (clientes.Count == 0) // Check if the customer list is empty
