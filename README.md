@@ -2,6 +2,7 @@
 
 **Customer Manager 8.0** is a simple, user-friendly C# console application designed to help small businesses manage customer information.  
 Originally built for my wife's beauty salon, it's a lightweight tool for storing, listing, and managing client records with just a few keystrokes.
+- Project used an as an academic assignment for Algorithms 2 / web app in production
 
 ---
 
